@@ -19,7 +19,7 @@ const Header = () => (
     </div>
 
     <div className="illustration__wrapper__download">
-      <div className="input__section__primary"></div>
+      <a href="https://ritapersonaldata.com" target="_blank">Download the app here.</a>
     </div>
   </div>
 );
