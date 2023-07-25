@@ -33,7 +33,7 @@ const Header = () => (
             className="text-input-primary"
             placeholder="Email Address"
           />
-          <a className="demo-button">Join Beta</a>
+          <a className="demo-button" href='./thankyou'>Join Beta</a>
         </div>
       </div>
     </div>
