@@ -7,6 +7,29 @@ mixpanel.init(mixpanelToken, {
 
 const Header = () => {
   const [email, setEmail] = React.useState("");
+  const [isValidEmail, setIsValidEmail] = React.useState(true);
+
+  const validateEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  };
+
+  const handleJoinBetaClick = (e) => {
+    e.preventDefault();
+
+    if (validateEmail(email)) {
+      mixpanel.track("Personal AI", {
+        email: email,
+      });
+
+      // Redirect to the 'thankyou' page
+      window.location.href = "./thankyou";
+    } else {
+      // Invalid email address, show an error message or take appropriate action
+      setIsValidEmail(false);
+    }
+  };
+
   return (
     <div className="navbar__container__fluid animate__animated animate__fadeIn">
       <div className="logo__section">
@@ -39,19 +62,14 @@ const Header = () => {
           <div className="input-container animated fadeIn">
             <input
               type="text"
-              className="text-input-primary"
+              className={`text-input-primary ${isValidEmail ? "" : "error"}`}
               placeholder="Email Address"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <a
-              className="demo-button"
-              href="./thankyou"
-              onClick={(e) => {
-                mixpanel.track("Personal AI", {
-                  email: email,
-                });
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setIsValidEmail(true); // Reset validation status on input change
               }}
-            >
+            />
+            <a className="demo-button" href="#" onClick={handleJoinBetaClick}>
               Join Beta
             </a>
           </div>
